@@ -6,6 +6,10 @@ from pygame import mixer
 import time
 
 
+
+#added new comment
+#jai pubg
+
 mixer.init()
 sound = mixer.Sound('alarm.wav')
 
