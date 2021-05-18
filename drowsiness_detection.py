@@ -6,6 +6,10 @@ from pygame import mixer
 import time
 
 
+
+#added new comment
+#jai pubg
+
 mixer.init()
 sound = mixer.Sound('alarm.wav')
 
@@ -51,14 +55,17 @@ while(True):
 
     for (x,y,w,h) in right_eye:
         r_eye=frame[y:y+h,x:x+w]
-        cv2.imwrite('rightEye.jpg',r_eye)
         count=count+1
 ##        r_eye = cv2.cvtColor(r_eye,cv2.COLOR_BGR2GRAY)
 ##        r_eye = cv2.resize(r_eye,(24,24))
 ##        r_eye= r_eye/255
 ##        r_eye=  r_eye.reshape(24,24,-1)
 ##        r_eye = np.expand_dims(r_eye,axis=0)
-        prediction = model.predict([prepare("./rightEye.jpg")])
+        cv2.imwrite('rightEye.jpg',r_eye)
+        try:
+            prediction = model.predict([prepare("./rightEye.jpg")])
+        except:
+            print("djfddfbhbdkfjhsdjknf")
         saved1=np.argmax(prediction)
         if(saved1==3):
             lbl='Open' 
@@ -68,14 +75,13 @@ while(True):
 
     for (x,y,w,h) in left_eye:
         l_eye=frame[y:y+h,x:x+w]
-        cv2.imwrite('leftEye.jpg',l_eye)
         count=count+1
 ##        l_eye = cv2.cvtColor(l_eye,cv2.COLOR_BGR2GRAY)  
 ##        l_eye = cv2.resize(l_eye,(24,24))
 ##        l_eye= l_eye/255
 ##        l_eye=l_eye.reshape(24,24,-1)
 ##        l_eye = np.expand_dims(l_eye,axis=0)
-##        lpred = model.predict_classes(l_eye)
+        cv2.imwrite('leftEye.jpg',l_eye)
         prediction = model.predict([prepare("./leftEye.jpg")])
         saved2=np.argmax(prediction)
         if(saved2==3):
@@ -83,7 +89,7 @@ while(True):
         if(saved2==2):
             lbl='Closed'
         break
-
+    print(saved1,saved2)
     if(saved1==2 or saved2==2):
         score=score+1
         cv2.putText(frame,"Closed",(10,height-20), font, 1,(255,255,255),1,cv2.LINE_AA)
